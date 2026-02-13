@@ -7,6 +7,17 @@ body {
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
+body {
+  overscroll-behavior: none;
+  touch-action: none; /* IMPORTANT: enables pointer events without browser gestures */
+}
+
+/* Prevent selecting text accidentally */
+body {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 #hud {
   position: fixed;
   left: 12px;
