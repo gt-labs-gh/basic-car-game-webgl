@@ -1,0 +1,10 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+
+# VS Code (optional: keep settings out of repo)
+.vscode/
+
+# If you add Node tooling later
+node_modules/
+dist/

@@ -1,0 +1,30 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: #111;
+  color: #ddd;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+#hud {
+  position: fixed;
+  left: 12px;
+  top: 10px;
+  z-index: 10;
+  font-size: 14px;
+  line-height: 1.4;
+  user-select: none;
+}
+
+#status {
+  opacity: 0.85;
+  margin-top: 6px;
+}
+
+canvas {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  outline: none;
+}
