@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDC Conference Mind Map</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            min-width: 1400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+
+        .mindmap {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 60px;
+            padding: 40px 20px;
+        }
+
+        .central-node {
+            position: relative;
+            z-index: 10;
+        }
+
+        .node {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 40px;
+            border-radius: 50%;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            text-align: center;
+            min-width: 150px;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .branch {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 400px;
+        }
+
+        .branch-node {
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .branch-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .branch-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .sub-node {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .sub-title {
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .item {
+            color: #718096;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-left: 15px;
+            padding: 3px 0;
+        }
+
+        .item::before {
+            content: "•";
+            color: #667eea;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .tier-badge {
+            display: inline-block;
+            background: #48bb78;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .tier-2 { background: #4299e1; }
+        .tier-3 { background: #9f7aea; }
+
+        .event-time {
+            color: #805ad5;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .location {
+            color: #718096;
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .highlight {
+            background: #fef5e7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .columns {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+
+        .section-group {
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 GDC Conference Strategy Map</h1>
+        
+        <div class="mindmap">
+            <!-- Left Branch: Validate Monetization -->
+            <div class="branch">
+                <div class="branch-node">
+                    <div class="branch-title">💰 Validate Monetization Interest</div>
+                    
+                    <div class="sub-node">
+                        <div class="sub-title">Core Angles to Validate</div>
+                        <div class="item">LiveOps & Revenue optimization</div>
+                        <div class="item">Direct-to-Consumer / Commerce</div>
+                        <div class="item">Premiumization / Monetization psychology</div>
+                        <div class="item">Growth / UA efficiency</div>
+                        <div class="item">Multiplayer ecosystem sustainability</div>
+                        <div class="item">Publisher economics (splits, distribution)</div>
+                        <div class="item">Platform shifts (XR, new ecosystems)</div>
+                    </div>
+
+                    <div class="sub-node">
+                        <div class="sub-title">🎯 Top 5 Priority Sessions</div>
+                        <div class="item"><span class="highlight">LiveOps Moneyball</span> (Mar 11)</div>
+                        <div class="item"><span class="highlight">D2C in 2026</span> (Mar 10)</div>
+                        <div class="item"><span class="highlight">Player-Assisted Monetization</span> (Mar 9)</div>
+                        <div class="item"><span class="highlight">PM Summit – Revenue Streams</span> (Mar 10)</div>
+                        <div class="item"><span class="highlight">The Attention Equation</span> (Mar 11)</div>
+                    </div>
+
+                    <div class="sub-node">
+                        <div class="sub-title">Additional High-Signal Sessions</div>
+                        <div class="item">Future of Fair Play: AI in multiplayer (Mar 10)</div>
+                        <div class="item">Publisher–Developer relationship (Mar 11)</div>
+                        <div class="item">Brand + Performance on Meta (Mar 12)</div>
+                        <div class="item">XR in 2026: State of industry (Mar 9)</div>
+                        <div class="item">Honor of Kings: Asset pipeline (Mar 12)</div>
+                    </div>
+                </div>
+
+                <div class="branch-node">
+                    <div class="branch-title">📅 Events Schedule</div>
+                    
+                    <div class="section-group">
+                        <div class="sub-title">Monday – March 9</div>
+                        <div class="item">
+                            <span class="event-time">10:30–11:30</span> Game Funding: Outersloth<br>
+                            <span class="location">Room 2010 West Hall</span>
+                        </div>
+                        <div class="item">
+                            <span class="event-time">11:20–11:50</span> Player-Assisted Monetization<br>
+                            <span class="location">Room 2024 West Hall</span>
+                        </div>
+                        <div class="item">
+                            <span class="event-time">10:30–12:00</span> XR in 2026 + Networking<br>
+                            <span class="location">Room 212 South Hall</span>
+                        </div>
+                    </div>
+
+                    <div class="section-group">
+                        <div class="sub-title">Tuesday – March 10</div>
+                        <div class="item">
+                            <span class="event-time">12:45–1:45</span> D2C in 2026<br>
+                            <span class="location">Esplanade 160 South Hall</span>
+                        </div>
+                        <div class="item">
+                            <span class="event-time">12:45–1:45</span> Future of Fair Play: AI<br>
+                            <span class="location">Esplanade 158 South Hall</span>
+                        </div>
+                        <div class="item">
+                            <span class="event-time">TBD</span> PM Summit – Revenue Streams<br>
+                            <span class="location">Room 2010 West Hall</span>
+                        </div>
+                    </div>
+
+                    <div class="section-group">
+                        <div class="sub-title">Wednesday – March 11</div>
+                        <div class="item">
+                            <span class="event-time">1:30–2:30</span> The Attention Equation<br>
+                            <span class="location">Blue Shield Theater</span>
+                        </div>
+                        <div class="item">
+                            <span class="event-time">4:30–5:00</span> LiveOps Moneyball<br>
+                            <span class="location">Room 2014 West Hall</span>
+                        </div>
+                        <div class="item">
+                            <span class="event-time">4:30–5:30</span> Publisher–Developer<br>
+                            <span class="location">Room 2016 West Hall</span>
+                        </div>
+                    </div>
+
+                    <div class="section-group">
+                        <div class="sub-title">Thursday – March 12</div>
+                        <div class="item">
+                            <span class="event-time">1:50–2:50</span> Honor of Kings pipeline<br>
+                            <span class="location">Room 3004 West Hall</span>
+                        </div>
+                        <div class="item">
+                            <span class="event-time">2:00–2:30</span> Brand + Performance Meta<br>
+                            <span class="location">Room 2024 West Hall</span>
+                        </div>
+                        <div class="item">
+                            <span class="event-time">6:30–8:00</span> GDC Choice Awards<br>
+                            <span class="location">North Hall</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Central Node -->
+            <div class="central-node">
+                <div class="node">GDC<br>2026</div>
+            </div>
+
+            <!-- Right Branch: Investors & Companies -->
+            <div class="branch">
+                <div class="branch-node">
+                    <div class="branch-title">💼 Investors & Strategy</div>
+                    
+                    <div class="sub-node">
+                        <div class="sub-title">Goals</div>
+                        <div class="item">Understand investor theses & capital allocation</div>
+                        <div class="item">Learn key metrics (retention, LTV, margin)</div>
+                        <div class="item">Build relationships for follow-ups</div>
+                    </div>
+
+                    <div class="sub-node">
+                        <div class="sub-title">Investor-Heavy Sessions</div>
+                        <div class="item">
+                            The Attention Equation<br>
+                            <span class="location">McKinsey + Lightspeed VP (Mar 11)</span>
+                        </div>
+                        <div class="item">
+                            Game Funding: Lessons from Outersloth<br>
+                            <span class="location">(Mar 9)</span>
+                        </div>
+                    </div>
+
+                    <div class="sub-node">
+                        <div class="sub-title">Networking Opportunities</div>
+                        <div class="item">GDC Choice Awards (Mar 12)</div>
+                        <div class="item">XR in 2026 networking (Mar 9)</div>
+                    </div>
+                </div>
+
+                <div class="branch-node">
+                    <div class="branch-title">🎮 Indie Game Companies</div>
+                    
+                    <div class="sub-node">
+                        <div class="sub-title">Tier 1 <span class="tier-badge">Highest Signal</span></div>
+                        
+                        <div style="margin-top: 10px;">
+                            <strong style="color: #2d3748;">Innersloth</strong>
+                            <div class="item">Raquel Lin – Studio Operations Director</div>
+                            <div class="item">Kristi Anderson – Director of Production</div>
+                            <div class="item">Daryl Fontaine – Backend Director</div>
+                        </div>
+
+                        <div style="margin-top: 10px;">
+                            <strong style="color: #2d3748;">Schell Games</strong>
+                            <div class="item">Russell Ball – VP of Engineering</div>
+                            <div class="item">Matthew Mahon – VP of Project Direction</div>
+                            <div class="item">Jared Mason – VP of Design</div>
+                            <div class="item">Jill Sciulli – VP of Marketing</div>
+                            <div class="item">Jeremiah Young – Product Manager</div>
+                            <div class="item">Erin Sawyer – Product Manager</div>
+                        </div>
+
+                        <div style="margin-top: 10px;">
+                            <strong style="color: #2d3748;">Outfit7</strong>
+                            <div class="item">Klemen Lamut – Director of Ad Monetization</div>
+                        </div>
+                    </div>
+
+                    <div class="sub-node">
+                        <div class="sub-title">Tier 2 <span class="tier-badge tier-2">Priority</span></div>
+                        
+                        <div style="margin-top: 10px;">
+                            <strong style="color: #2d3748;">Santa Barbara Games</strong>
+                            <div class="item">Laura Mae Brown – COO & Head of Product</div>
+                            <div class="item">Derek Brinkmann – CTO</div>
+                        </div>
+
+                        <div style="margin-top: 10px;">
+                            <strong style="color: #2d3748;">Moonfrog Labs</strong>
+                            <div class="item">Varun Kumar K – Lead Product Manager</div>
+                        </div>
+                    </div>
+
+                    <div class="sub-node">
+                        <div class="sub-title">Tier 3 <span class="tier-badge tier-3">Opportunistic</span></div>
+                        <div class="item">MixRift (Bobby Voicu - CEO, David Pripas - CPO)</div>
+                        <div class="item">Dragonhorse Interactive (Richard Yang - CEO)</div>
+                        <div class="item">Studio Atelico (Piero Molino - CEO)</div>
+                        <div class="item">Sackbird Studios (Doug Carroll - CCO)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
