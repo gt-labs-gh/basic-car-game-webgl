@@ -15,12 +15,12 @@
 
         <div class="input-group">
         <label for="userName">User Name</label>
-        <input type="text" id="userName" placeholder="Guest" />
+        <input type="text" id="userName" placeholder="Guest" value="admin" />
         </div>
 
         <div class="input-group">
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="••••••••" />
+        <input type="password" id="password" placeholder="••••••••" value="awywdN5p74LHSBKHsCqRh7lmvI1Aabk5" />
       </div>
 
       <p id="error-message"></p>
@@ -30,13 +30,14 @@
     </div>
 
     <!-- Heads-up display -->
-    <div id="Game-view">
+    <div id="game-view">
       <div><b>Controls:</b> ← / → (or A / D). Click canvas to focus.</div>
       <div id="status"></div>
     </div>
 
     <canvas id="c"></canvas>
 
+    <script src="https://cdn.socket.io/4.8.3/socket.io.min.js" integrity="sha384-kzavj5fiMwLKzzD1f8S7TeoVIEi7uKHvbTA3ueZkrzYq75pNQUiUi6Dy98Q3fxb0" crossorigin="anonymous"></script>
     <script type="module" src="main.js"></script>
   </body>
 </html>

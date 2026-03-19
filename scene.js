@@ -1,3 +1,5 @@
+const statusEl = document.querySelector("#status");
+
 export function renderScene(drawRect, game) {
   // Road background
   drawRect({

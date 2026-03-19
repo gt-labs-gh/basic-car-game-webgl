@@ -6,6 +6,7 @@ import { installInput } from "./input.js";
 import { createGame } from "./game.js";
 import { renderScene } from "./scene.js";
 import { login } from "./auth.js";
+import { GameApi } from "./game_api.js";
 
 
 // Elements
@@ -15,40 +16,59 @@ const loginBtn = document.getElementById("login-btn")
 const errorMessage = document.getElementById("error-message")
 
 const canvas = document.querySelector("#c");
-const statusEl = document.querySelector("#status");
 const loginView = document.getElementById("login-view");
 const gameView = document.getElementById("game-view");
 
 // Event listener
-loginBtn.addEventListener("click", authenticateUser);  
-
-// Allow pressing Enter to submit the form
-passwordInput.addEventListener("keypress", (event) => {
-  if (event.key === "Enter") login();
-}); 
+loginBtn.addEventListener("click", authenticateUser);
 
 //All functions and main loop
 
 // Show the specified view and hide others
 function showView(id) {
-  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+  document.querySelectorAll("[id$=-view]").forEach((v) => {
+    if(v.id !== id) {
+      v.classList.remove("active")
+      v.style.visibility = "hidden";
+    }
+  });
+
+  const el = document.getElementById(id);
+  el.classList.add("active");
+  el.style.visibility = "visible";
 }
 
 async function authenticateUser() {
   try {
-    const data = await login(userNameInput.value.trim(), passwordInput.value.trim()); 
-    return {ok:true, user:data.user, token:data.token}; // Authentication successful
+    const token = await (async () => {
+      const existingToken = sessionStorage.getItem("auth_token");
+      if(!existingToken) {
+        const token = await login(userNameInput.value.trim(), passwordInput.value.trim());
+
+        console.log("Login successfully!")
+
+        sessionStorage.setItem("auth_token", token);
+
+        return token;
+      }
+
+      return existingToken;
+    })();
+
+    startGame(token);
   } catch (error) {
     console.error("Authentication error:", error);
-    return {ok:false, error: error.message || "Authentication failed"}; // Authentication failed
   }
 }
 
-function startGame() {
-  showView("game-view"); // Show game view on successful login  
+function startGame(token) {
+  const gameApi = new GameApi();
+
+  gameApi.connect(token);
+
+  showView("game-view"); // Show game view on successful login
   const canvas = document.querySelector("#c");
-  const statusEl = document.querySelector("#status"); 
+  const statusEl = document.querySelector("#status");
   canvas.tabIndex = 0;
   canvas.addEventListener("click", () => canvas.focus());
 
@@ -64,6 +84,8 @@ function startGame() {
 
     // Input -> actions -> game
     installInput(window, (action) => {
+      gameApi.notifyLaneChange(action.type);
+
       game.handleAction(action);
     });
 
@@ -72,28 +94,31 @@ function startGame() {
     let lastT = performance.now();
 
     function frame(now) {
-      renderer.resizeToDisplaySize();
+      try {
+        renderer.resizeToDisplaySize();
 
-      const dt = Math.min(0.05, (now - lastT) / 1000);
-      lastT = now;
+        const dt = Math.min(0.05, (now - lastT) / 1000);
+        lastT = now;
 
-      game.update(dt);
+        game.update(dt);
 
-      renderer.clear(0.07, 0.07, 0.08, 1.0);
-      renderScene(renderer.drawRect, game);
+        renderer.clear(0.07, 0.07, 0.08, 1.0);
+        renderScene(renderer.drawRect, game);
+      } catch(err) {
+        console.error("Failed to animate frame:", err);
+      }
 
       requestAnimationFrame(frame);
     }
 
     requestAnimationFrame(frame);
 }
-  
+
 
 async function init() {
-    debugger;
+  showView("login-view"); // Start with the login view
+}
 
-    showView("login-view"); // Start with the login view
-   
-  } 
-
-init(); 
+init().catch(function(err) {
+  console.error("Something went really wrong during initialization:", err);
+});
