@@ -7,7 +7,30 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="hud">
+    <!-- Login Overlay -->
+    <div id="login-view">
+      <div id="login-box">
+        <h2>GameTrade</h2>
+        <p class="subtitle">Sign in to continue</p>
+
+        <div class="input-group">
+        <label for="userName">User Name</label>
+        <input type="text" id="userName" placeholder="Guest" />
+        </div>
+
+        <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••" />
+      </div>
+
+      <p id="error-message"></p>
+
+      <button id="login-btn">Login</button>
+      </div>
+    </div>
+
+    <!-- Heads-up display -->
+    <div id="Game-view">
       <div><b>Controls:</b> ← / → (or A / D). Click canvas to focus.</div>
       <div id="status"></div>
     </div>

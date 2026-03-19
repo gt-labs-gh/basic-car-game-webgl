@@ -4,111 +4,96 @@
 import { createRenderer } from "./renderer.js";
 import { installInput } from "./input.js";
 import { createGame } from "./game.js";
+import { renderScene } from "./scene.js";
+import { login } from "./auth.js";
+
+
+// Elements
+const userNameInput = document.getElementById("userName")
+const passwordInput = document.getElementById("password")
+const loginBtn = document.getElementById("login-btn")
+const errorMessage = document.getElementById("error-message")
 
 const canvas = document.querySelector("#c");
 const statusEl = document.querySelector("#status");
+const loginView = document.getElementById("login-view");
+const gameView = document.getElementById("game-view");
 
-canvas.tabIndex = 0;
-canvas.addEventListener("click", () => canvas.focus());
+// Event listener
+loginBtn.addEventListener("click", authenticateUser);  
 
-let renderer;
-try {
-  renderer = createRenderer(canvas);
-  statusEl.textContent = "WebGL2 OK";
-} catch (err) {
-  statusEl.textContent = String(err?.message || err);
-  throw err;
+// Allow pressing Enter to submit the form
+passwordInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") login();
+}); 
+
+//All functions and main loop
+
+// Show the specified view and hide others
+function showView(id) {
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 }
 
-const game = createGame();
-
-// Input -> actions -> game
-installInput(window, (action) => {
-  game.handleAction(action);
-});
-
-function renderScene(drawRect) {
-  // Road background
-  drawRect({
-    x: 0,
-    y: 0,
-    w: 1.4,
-    h: 1.9,
-    color: [0.12, 0.12, 0.13, 1],
-  });
-
-  // Lanes
-  const { laneX, car, targetLane, currentX } = game.getDrawData();
-
-  drawRect({
-    x: laneX.left,
-    y: 0,
-    w: 0.55,
-    h: 1.8,
-    color: [0.16, 0.16, 0.18, 1],
-  });
-  drawRect({
-    x: laneX.right,
-    y: 0,
-    w: 0.55,
-    h: 1.8,
-    color: [0.16, 0.16, 0.18, 1],
-  });
-
-  // Center divider
-  drawRect({
-    x: 0,
-    y: 0,
-    w: 0.02,
-    h: 1.8,
-    color: [0.75, 0.75, 0.75, 0.25],
-  });
-
-  // Car shadow
-  drawRect({
-    x: car.x + 0.03,
-    y: car.y - 0.03,
-    w: car.w,
-    h: car.h,
-    color: [0, 0, 0, 0.35],
-  });
-
-  // Car body
-  drawRect({
-    x: car.x,
-    y: car.y,
-    w: car.w,
-    h: car.h,
-    color: [0.9, 0.2, 0.25, 1],
-  });
-
-  // Windshield accent
-  drawRect({
-    x: car.x,
-    y: car.y + 0.06,
-    w: car.w * 0.7,
-    h: car.h * 0.25,
-    color: [0.7, 0.85, 0.95, 0.9],
-  });
-
-  statusEl.textContent = `Lane: ${targetLane.toUpperCase()} (x=${currentX.toFixed(3)})`;
+async function authenticateUser() {
+  try {
+    const data = await login(userNameInput.value.trim(), passwordInput.value.trim()); 
+    return {ok:true, user:data.user, token:data.token}; // Authentication successful
+  } catch (error) {
+    console.error("Authentication error:", error);
+    return {ok:false, error: error.message || "Authentication failed"}; // Authentication failed
+  }
 }
 
-// ---------- Main loop ----------
-let lastT = performance.now();
+function startGame() {
+  showView("game-view"); // Show game view on successful login  
+  const canvas = document.querySelector("#c");
+  const statusEl = document.querySelector("#status"); 
+  canvas.tabIndex = 0;
+  canvas.addEventListener("click", () => canvas.focus());
 
-function frame(now) {
-  renderer.resizeToDisplaySize();
+  let renderer;
+  try {
+    renderer = createRenderer(canvas);
+    statusEl.textContent = "WebGL2 OK";
+  } catch (err) {
+    statusEl.textContent = String(err?.message || err);
+    throw err;
+  }
+      const game = createGame();
 
-  const dt = Math.min(0.05, (now - lastT) / 1000);
-  lastT = now;
+    // Input -> actions -> game
+    installInput(window, (action) => {
+      game.handleAction(action);
+    });
 
-  game.update(dt);
 
-  renderer.clear(0.07, 0.07, 0.08, 1.0);
-  renderScene(renderer.drawRect);
+    // ---------- Main loop ----------
+    let lastT = performance.now();
 
-  requestAnimationFrame(frame);
+    function frame(now) {
+      renderer.resizeToDisplaySize();
+
+      const dt = Math.min(0.05, (now - lastT) / 1000);
+      lastT = now;
+
+      game.update(dt);
+
+      renderer.clear(0.07, 0.07, 0.08, 1.0);
+      renderScene(renderer.drawRect, game);
+
+      requestAnimationFrame(frame);
+    }
+
+    requestAnimationFrame(frame);
 }
+  
 
-requestAnimationFrame(frame);
+async function init() {
+    debugger;
+
+    showView("login-view"); // Start with the login view
+   
+  } 
+
+init(); 

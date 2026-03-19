@@ -39,3 +39,127 @@ canvas {
   height: 100vh;
   outline: none;
 }
+
+/* ---- Reset & Base ---- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #1a1a2e;
+  color: #eee;
+}
+
+/* ---- Overlay ---- */
+#login-view {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+/* ---- Login Box ---- */
+#login-box {
+  background: #16213e;
+  border: 1px solid #0f3460;
+  border-radius: 12px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+#login-box h2 {
+  text-align: center;
+  font-size: 1.6rem;
+  color: #e94560;
+  letter-spacing: 1px;
+}
+
+#login-box p.subtitle {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: -0.8rem;
+}
+
+/* ---- Inputs ---- */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.input-group label {
+  font-size: 0.8rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input-group input {
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #0f3460;
+  background: #0f3460;
+  color: #eee;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+  border-color: #e94560;
+}
+
+/* ---- Button ---- */
+#login-btn {
+  padding: 0.85rem;
+  background: #e94560;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  margin-top: 0.5rem;
+}
+
+#login-btn:hover {
+  background: #c73652;
+}
+
+#login-btn:active {
+  transform: scale(0.98);
+}
+
+#login-btn:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+/* ---- Error Message ---- */
+#error-message {
+  color: #e94560;
+  font-size: 0.85rem;
+  text-align: center;
+  min-height: 1.2rem;
+}
+
+/* ---- Game Container ---- */
+#game-container {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+}
