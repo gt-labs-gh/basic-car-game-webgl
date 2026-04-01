@@ -12,7 +12,7 @@ export async function login(userName, password) {
   });
 
   if(!response.ok)
-    throw Error(`Login failed: ${response.statusText}`);
+    throw Error(`Login failed: ${response.status} ${response.statusText}`);
 
   const resp = await response.json();
   if(!resp || typeof resp !== "object" || Array.isArray(resp))

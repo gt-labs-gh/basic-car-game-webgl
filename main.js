@@ -13,11 +13,6 @@ import { GameApi } from "./game_api.js";
 const userNameInput = document.getElementById("userName")
 const passwordInput = document.getElementById("password")
 const loginBtn = document.getElementById("login-btn")
-const errorMessage = document.getElementById("error-message")
-
-const canvas = document.querySelector("#c");
-const loginView = document.getElementById("login-view");
-const gameView = document.getElementById("game-view");
 
 // Event listener
 loginBtn.addEventListener("click", authenticateUser);
@@ -88,6 +83,8 @@ function startGame(token) {
 
       game.handleAction(action);
     });
+
+    
 
 
     // ---------- Main loop ----------

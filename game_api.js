@@ -21,9 +21,10 @@ export class GameApi {
     this._socket.on("connect_error", (err) => {
       console.log("Socket connection error:", err);
 
-      setTimeout(() => {
-        this._socket.connect();
-      }, 1000);
+    //Seems like we dont need the setTimeOut - to verify with Pasha
+    //   setTimeout(() => {
+    //     this._socket.connect();
+    //   }, 1000);
     });
 
     this._socket.connect();
@@ -32,9 +33,34 @@ export class GameApi {
   notifyLaneChange(lane) {
     if(!this._socket)
       return;
-
+    console.log("Notifying lane change:", lane);
     this._socket.emit("/lane_change", {
       lane,
     });
   }
+
+  notifyBuy(lane) {
+    if(!this._socket)
+      return;
+
+    //Create idempotency key to prevent duplicate orders on retry
+    //Persist key in DB
+
+    this._socket.emit("/buy", {
+      lane,
+      
+    });
 }
+
+  notifySell(lane) {
+      if(!this._socket)
+        return;
+
+      //Create idempotency key to prevent duplicate orders on retry
+      //Persist key in DB
+
+      this._socket.emit("/sell", {
+        lane,
+      });
+    } 
+  }
