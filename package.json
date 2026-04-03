@@ -1,0 +1,29 @@
+{
+  "name": "lane-car-webgl",
+  "version": "1.0.0",
+  "description": "A tiny WebGL2 lane-switching demo.",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aharon-ye/basic-car-game-webgl.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aharon-ye/basic-car-game-webgl/issues"
+  },
+  "homepage": "https://github.com/Aharon-ye/basic-car-game-webgl#readme",
+  "devDependencies": {
+    "vite": "^8.0.3"
+  },
+    "dependencies": {
+    "gtl-client-sdk": "file:../gtl-client-sdk"
+  }
+}

@@ -6,8 +6,8 @@ import { installInput } from "./input.js";
 import { createGame } from "./game.js";
 import { renderScene } from "./scene.js";
 import { login } from "./auth.js";
-import { GameApi } from "./game_api.js";
-
+//import { GameApi } from "./game_api.js";
+import { gt_client_sdk } from 'gtl-client-sdk';
 
 // Elements
 const userNameInput = document.getElementById("userName")
@@ -62,9 +62,12 @@ async function authenticateUser() {
 }
 
 function startGame(token) {
-  const gameApi = new GameApi();
+  //const gameApi = new GameApi();
+  const clientSDK = new gt_client_sdk()
 
-  gameApi.connect(token);
+
+  //gameApi.connect(token);
+  clientSDK.connect(token);
 
   showView("game-view"); // Show game view on successful login
   const canvas = document.querySelector("#c");
@@ -84,7 +87,8 @@ function startGame(token) {
 
     // Input -> actions -> game
     installInput(window, (action) => {
-      gameApi.notifyLaneChange(action.type);
+      //gameApi.notifyLaneChange(action.type);
+      clientSDK.notifyLaneChange(action.type);
 
       game.handleAction(action);
     });
