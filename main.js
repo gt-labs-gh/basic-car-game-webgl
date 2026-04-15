@@ -5,9 +5,7 @@ import { createRenderer } from "./renderer.js";
 import { installInput } from "./input.js";
 import { createGame } from "./game.js";
 import { renderScene } from "./scene.js";
-import { login } from "./auth.js";
-//import { GameApi } from "./game_api.js";
-import { gt_client_sdk } from 'gtl-client-sdk';
+import { GTClientSdk } from 'gtl-client-sdk';
 
 // Elements
 const userNameInput = document.getElementById("userName")
@@ -18,6 +16,12 @@ const errorMessage = document.getElementById("error-message")
 const canvas = document.querySelector("#c");
 const loginView = document.getElementById("login-view");
 const gameView = document.getElementById("game-view");
+
+const clientSDK = new GTClientSdk({
+  apiUrl: 'http://127.0.0.1:8800',
+  socketUrl: 'http://127.0.0.1:8801',
+});
+
 
 // Event listener
 loginBtn.addEventListener("click", authenticateUser);
@@ -43,7 +47,7 @@ async function authenticateUser() {
     const token = await (async () => {
       const existingToken = sessionStorage.getItem("auth_token");
       if(!existingToken) {
-        const token = await login(userNameInput.value.trim(), passwordInput.value.trim());
+        const token = await clientSDK.login(userNameInput.value.trim(), passwordInput.value.trim());
 
         console.log("Login successfully!")
 
@@ -63,11 +67,12 @@ async function authenticateUser() {
 
 function startGame(token) {
   //const gameApi = new GameApi();
-  const clientSDK = new gt_client_sdk()
+
 
 
   //gameApi.connect(token);
   clientSDK.connect(token);
+  
 
   showView("game-view"); // Show game view on successful login
   const canvas = document.querySelector("#c");

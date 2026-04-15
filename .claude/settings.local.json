@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"c:/Users/aharo/OneDrive/Arale/1_ACTIVE PROJECTS/Elad and Aaron/GameTrade/Code/lane-car-webgl\" diff HEAD package.json)"
+    ]
+  }
+}
