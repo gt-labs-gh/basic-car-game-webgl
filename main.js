@@ -92,11 +92,13 @@ function startGame(token) {
 
     // Input -> actions -> game
     installInput(window, (action) => {
-      //gameApi.notifyLaneChange(action.type);
       clientSDK.notifyLaneChange(action.type);
-
       game.handleAction(action);
     });
+
+
+      // clientSDK.buyAsset(action.type);
+      // clientSDK.sellAsset(action.type);
 
 
     // ---------- Main loop ----------

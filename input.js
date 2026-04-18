@@ -11,7 +11,26 @@ export function installInput(windowObj, onAction) {
     if (k === "ArrowRight" || k === "d" || k === "D") {
       onAction({ type: "LANE_RIGHT" });
     }
+
+    
+    if (k === "b" || k === "B") {
+      onAction({ type: "BUY" });
+    }
+    if (k === "s" || k === "S") {
+      onAction({ type: "SELL" });
+    }
+
+
+
+
   }
+
+  if (k === "ArrowLeft" || k === "a" || k === "A") {
+  onAction({ type: "LANE_LEFT" });
+}
+if (k === "ArrowRight" || k === "d" || k === "D") {
+  onAction({ type: "LANE_RIGHT" });
+
 
   windowObj.addEventListener("keydown", onKeyDown);
 
