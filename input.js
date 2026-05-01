@@ -20,20 +20,19 @@ export function installInput(windowObj, onAction) {
       onAction({ type: "SELL" });
     }
 
-
-
-
   }
+  
 
-  if (k === "ArrowLeft" || k === "a" || k === "A") {
-  onAction({ type: "LANE_LEFT" });
-}
-if (k === "ArrowRight" || k === "d" || k === "D") {
-  onAction({ type: "LANE_RIGHT" });
+    if (k === "ArrowLeft" || k === "a" || k === "A") {
+    onAction({ type: "LANE_LEFT" });
+    }
+    if (k === "ArrowRight" || k === "d" || k === "D") {
+      onAction({ type: "LANE_RIGHT" });
 
 
-  windowObj.addEventListener("keydown", onKeyDown);
+      windowObj.addEventListener("keydown", onKeyDown);
 
-  // Return an "unsubscribe" function (good engineering habit)
-  return () => windowObj.removeEventListener("keydown", onKeyDown);
-}
+      // Return an "unsubscribe" function (good engineering habit)
+      return () => windowObj.removeEventListener("keydown", onKeyDown);
+    }
+  }
